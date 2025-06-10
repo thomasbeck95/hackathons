@@ -31,6 +31,7 @@ import json
 import nltk
 import re
 import pandas as pd
+import streamlit as st
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
@@ -174,6 +175,7 @@ plt.ylabel('Sentiment Compound Score')
 plt.title('Sentiment Over Time')
 plt.grid(True)
 plt.show()
+st.pyplot(plt.gcf())
 
 # %% colab={"base_uri": "https://localhost:8080/", "height": 450, "referenced_widgets": ["111dc26ebdb346faa89eb162a5e18698", "9ac9af1a07084b3eba8b3217de9b6618", "e9182d69d08b4ea69d888af90a75af29", "dff5b7b0fba34bab844924918dfb4520", "ce7dd561fada4a7e95892ba65e4eddfe", "5aa310653b144962a4add36fdbf34ba2", "f7b43bf50df343a0a7b5bee4d778bf72"]} id="GU6Q2iY3mrIu" outputId="827eb35c-0d18-4c44-cd54-58202022074c"
 import ipywidgets as widgets
@@ -210,6 +212,7 @@ def update_plot(index):
     plt.grid(True)
     plt.legend()
     plt.show()
+    st.pyplot(plt.gcf())
 
 # Create a slider widget based on the DataFrame index
 timestamp_slider = widgets.IntSlider(
@@ -236,6 +239,7 @@ plt.ylabel('Sentiment Compound Score')
 plt.title('Distribution of Sentiment Compound Scores')
 plt.grid(True)
 plt.show()
+st.pyplot(plt.gcf())
 
 # %% colab={"base_uri": "https://localhost:8080/", "height": 490} id="EuPrlfHatYrf" outputId="724fac3f-4df0-4492-b517-c0084d5b7ff6"
 import matplotlib.pyplot as plt
@@ -267,6 +271,7 @@ plt.xticks(rotation=45, ha='right') # Rotate x-axis labels for readability
 plt.tight_layout() # Adjust layout to prevent labels from overlapping
 plt.grid(True, axis='y') # Add grid lines on the y-axis
 plt.show()
+st.pyplot(plt.gcf())
 
 # %% [markdown] id="P3uEBnGrqxlA"
 # ## Project Ideas
