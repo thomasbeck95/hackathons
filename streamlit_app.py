@@ -263,7 +263,10 @@ if st.button("Analyze"):
 
 
     #Laura's code
-    pipe = pipeline("summarization", model="facebook/bart-large-cnn", max_length=30)
+    #pipe = pipeline("summarization", model="facebook/bart-large-cnn", max_length=30)
+    
+    #Maybe a faster summariser?
+    pipe = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6", max_length=30, do_sample=True)
 
     daily_summaries = []
 
@@ -279,7 +282,7 @@ if st.button("Analyze"):
 
     sorted_by_day = sorted(grouped_results.keys())
 
-    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+    #summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
     for day in sorted_by_day:
         summaries = grouped_results[day]
