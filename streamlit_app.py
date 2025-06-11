@@ -122,10 +122,11 @@ if st.button("Analyze"):
             to_summarize += summary
         print(to_summarize)
 
+    sorted_by_day = sorted(grouped_results.keys())
 
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
-    for day, summaries in grouped_results.items():
+    for day, summaries in sorted_by_day:
         st.write(day)
         to_summarize = " ".join(summaries)[:2024]  # Limit input size
         summary = summarizer(to_summarize, max_length=100, num_beams=2, do_sample=False)
