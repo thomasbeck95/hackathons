@@ -74,6 +74,10 @@ headers = {
 
 stop_words = set(stopwords.words('english'))
 
+# logo 
+
+st.image("logo.png", use_container_width=True)
+
 # User Input Field
 query_text = st.text_input("Enter a search query:")
 # Button to trigger API call
@@ -268,17 +272,17 @@ if st.button("Analyze"):
     #Maybe a faster summariser?
     pipe = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6", max_length=30, do_sample=True)
 
-    daily_summaries = []
+    # daily_summaries = []
 
     query_results = json.dumps(grouped_results, indent=4)
-    print(grouped_results)
+    # print(grouped_results)
 
     for day in grouped_results:
         to_summarize = ""
         summaries = grouped_results[day] #['summary1', 'summary2'...]
         for summary in summaries:
             to_summarize += summary
-        print(to_summarize)
+        # print(to_summarize)
 
     sorted_by_day = sorted(grouped_results.keys())
 
@@ -288,7 +292,7 @@ if st.button("Analyze"):
         summaries = grouped_results[day]
         st.write(day)
         to_summarize = " ".join(summaries)[:2024]  # Limit input size
-        summary = summarizer(to_summarize, max_length=100, num_beams=2, do_sample=False)
+        summary = pipe(to_summarize, max_length=100, num_beams=2, do_sample=False)
         st.write(summary[0]["summary_text"])
 
 
