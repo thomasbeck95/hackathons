@@ -106,48 +106,7 @@ if st.button("Analyze"):
 
     #print(json.dumps(grouped_results, indent=4))
 
-
-    #Laura's code
-    pipe = pipeline("summarization", model="facebook/bart-large-cnn", max_length=30)
-
-    daily_summaries = []
-
-    query_results = json.dumps(grouped_results, indent=4)
-    print(grouped_results)
-
-    for day in grouped_results:
-        to_summarize = ""
-        summaries = grouped_results[day] #['summary1', 'summary2'...]
-        for summary in summaries:
-            to_summarize += summary
-        print(to_summarize)
-
-    sorted_by_day = sorted(grouped_results.keys())
-
-    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-
-    for day, summaries in sorted_by_day:
-        st.write(day)
-        to_summarize = " ".join(summaries)[:2024]  # Limit input size
-        summary = summarizer(to_summarize, max_length=100, num_beams=2, do_sample=False)
-        st.write(summary[0]["summary_text"])
-
-    
-    # %% colab={"base_uri": "https://localhost:8080/"} id="4LYdLzB2OhFA" outputId="3a027f4a-4e38-43c6-857e-f5c2ff001e24"
-    #json_response['results'][3]
-
-    # %% colab={"base_uri": "https://localhost:8080/", "height": 695} id="IWGX-TZ8YBTG" outputId="3300ff40-c365-45d9-beba-583896687b26"
-    #df = pd.json_normalize(json_response['results'])
-
-    #df.head()
-
-    # %% colab={"base_uri": "https://localhost:8080/"} id="_JMVUlhPk7E7" outputId="92dfb8aa-b993-4b8d-d1af-387de889fb4e"
-    #print(df['timestamp'])
-
-
-    # %% [markdown] id="JBLHUuN-qsgw"
-    # ## Example Sentiment Analysis
-    
+ 
 
     # tony code
     df = pd.json_normalize(json_response['results'])
@@ -301,6 +260,33 @@ if st.button("Analyze"):
     wc = WordCloud(width=800, height=300, background_color='white').generate_from_frequencies(word_freq)
     st.subheader("🧠 Top Words in Summaries")
     st.image(wc.to_image())
+
+
+    #Laura's code
+    pipe = pipeline("summarization", model="facebook/bart-large-cnn", max_length=30)
+
+    daily_summaries = []
+
+    query_results = json.dumps(grouped_results, indent=4)
+    print(grouped_results)
+
+    for day in grouped_results:
+        to_summarize = ""
+        summaries = grouped_results[day] #['summary1', 'summary2'...]
+        for summary in summaries:
+            to_summarize += summary
+        print(to_summarize)
+
+    sorted_by_day = sorted(grouped_results.keys())
+
+    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+
+    for day in sorted_by_day:
+        summaries = grouped_results[day]
+        st.write(day)
+        to_summarize = " ".join(summaries)[:2024]  # Limit input size
+        summary = summarizer(to_summarize, max_length=100, num_beams=2, do_sample=False)
+        st.write(summary[0]["summary_text"])
 
 
 
